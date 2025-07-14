@@ -15,7 +15,7 @@ const Home = () => {
     <div className="bg-black w-full">
         <div className="">
 
-            hgfdtghfyvuj
+            hgfdtghfyvujewrdw
         </div>
       <div className="flex mt-10 justify-center items-center m-auto   rounded-2xl w-xs h-9 bg-gray-100">
         <SlEnergy />

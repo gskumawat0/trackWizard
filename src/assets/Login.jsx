@@ -1,7 +1,8 @@
 import React, { useContext } from 'react';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { Maincontext } from './Pages/Context';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+
 
 
 
@@ -82,8 +83,9 @@ signInWithEmailAndPassword(auth, email, password)
 
         <p className="text-center text-sm text-gray-600 mt-4">
           Did't have an account?{' '}
-          <a href="#" className="text-blue-500 hover:underline">
-            Log in
+        
+          <a href="/register" className="text-blue-500 hover:underline">
+         Register
           </a>
         </p>
       </div>

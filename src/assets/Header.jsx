@@ -24,20 +24,31 @@ const Header = () => {
             <>
               <div></div>
               <nav className="hidden md:flex space-x-6">
-                <Link to={""} className="text-gray-700 hover:text-blue-600">
-                  <VscGraph /> Dashboard
+               <Link
+                  to={"/"}
+                  className="text-gray-700 flex gap-2 cursor-pointer hover:bg-amber-100 p-2 rounded-xl hover:text-blue-600"
+                >
+                  <VscGraph className="mt-1.5" /> Dashboard
                 </Link>
-                <Link to={""} className="text-gray-700 hover:text-blue-600">
-                  Activies
+                <Link
+                  to={"/activity"}
+                  className="text-gray-700 flex gap-2 cursor-pointer hover:bg-amber-100 p-2 rounded-xl hover:text-blue-600"
+                >
+                  <FaBars className="mt-1.5" /> Activies
                 </Link>
-                <Link to={""} className="text-gray-700 hover:text-blue-600">
+                <Link
+                  to={"/activity_logs"}
+                  className="text-gray-700 flex gap-2 cursor-pointer hover:bg-amber-100 p-2 rounded-xl hover:text-blue-600"
+                >
+                  <CiCalendarDate className="mt-1.5" />
                   Activity Logs
                 </Link>
                 <Link
                   to={"/interval"}
-                  className="text-gray-700 hover:text-blue-600"
+                  className="text-gray-700 flex gap-2 cursor-pointer hover:bg-amber-100 p-2 rounded-xl hover:text-blue-600"
                 >
-                  Excluded Intervals
+                  <PiPaintBrushBroadThin className="mt-1.5" /> Excluded
+                  Intervals
                 </Link>
                 <div
                   onClick={logout}
