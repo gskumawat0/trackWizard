@@ -1,50 +1,49 @@
-import React, { useContext } from 'react';
+import React, { useContext } from "react";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { Maincontext } from './Pages/Context';
-import { Link, useNavigate } from 'react-router-dom';
+// import { Maincontext } from "../Pages/Context"; // adjust if needed
 
+import { Link, useNavigate } from "react-router-dom";
+// import { auth } from "../firebase"; // correct path to firebase.js
+// import {  signInWithEmailAndPassword } from "firebase/auth";
 
-
-
-
+import { Maincontext } from "./Pages/Context";
 
 const Login = () => {
-  const {userHandler} = useContext(Maincontext);
- const nevigate = useNavigate()
+  const { userHandler } = useContext(Maincontext);
+  const navigate = useNavigate();
 
   const registerHandler = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
-    
-const auth = getAuth();
-signInWithEmailAndPassword(auth, email, password)
-  .then((userCredential) => {
-    // Signed in 
-    const user = userCredential.user;
-    userHandler(user)
-    localStorage.setItem("user".toString(user))
-    nevigate('/')
-    // ...
-  })
-  .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-  });
+    const auth = getAuth();
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        userHandler(user);
+        localStorage.setItem("user", JSON.stringify(user));
+        navigate("/");
+      })
+      .catch((error) => {
+        console.error("Login Error:", error.code, error.message);
+        alert("Login failed: " + error.message);
+      });
+  };
 
-  }
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center">
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
         <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">
           Welcome to Trackme
         </h2>
-        <p className='text-center mb-4'>Sign in to your account to continue</p>
+        <p className="text-center mb-4">Sign in to your account to continue</p>
 
         <form onSubmit={registerHandler} className="space-y-5">
-          {/* Email */}
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium text-gray-700"
+            >
               Email
             </label>
             <input
@@ -56,9 +55,11 @@ signInWithEmailAndPassword(auth, email, password)
             />
           </div>
 
-          {/* Password */}
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium text-gray-700"
+            >
               Password
             </label>
             <input
@@ -70,7 +71,6 @@ signInWithEmailAndPassword(auth, email, password)
             />
           </div>
 
-          {/* Submit Button */}
           <div>
             <button
               type="submit"
@@ -82,11 +82,10 @@ signInWithEmailAndPassword(auth, email, password)
         </form>
 
         <p className="text-center text-sm text-gray-600 mt-4">
-          Did't have an account?{' '}
-        
-          <a href="/register" className="text-blue-500 hover:underline">
-         Register
-          </a>
+          Didn't have an account?{" "}
+          <Link to="/register" className="text-blue-500 hover:underline">
+            Register
+          </Link>
         </p>
       </div>
     </div>

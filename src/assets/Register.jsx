@@ -1,37 +1,31 @@
-import React, { useContext } from 'react';
+import React, { useContext } from "react";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { Maincontext } from './Pages/Context';
-import { useNavigate } from 'react-router-dom';
-
-
-
-
-
+import { Maincontext } from "./Pages/Context";
+import { useNavigate } from "react-router-dom";
 const Register = () => {
-  const {userHandler} = useContext(Maincontext);
- const nevigate = useNavigate()
-
+  const { userHandler } = useContext(Maincontext);
+  const nevigate = useNavigate();
   const registerHandler = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
     const auth = getAuth();
-createUserWithEmailAndPassword(auth, email, password)
-  .then((userCredential) => {
-    // Signed up 
-    const user = userCredential.user;
-    userHandler(user.toJSON())
-nevigate("/")
-    // ...
-  })
-  .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    console.log(error)
-    // ..
-  });
-
-  }
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        userHandler(user.toJSON());
+        nevigate("/home");
+      })
+      .catch((error) => {
+        if (error.code === "auth/email-already-in-use") {
+          alert("This email is already registered.");
+        } else if (error.code === "auth/weak-password") {
+          alert("Password should be at least 6 characters.");
+        } else {
+          alert("Registration failed: " + error.message);
+        }
+      });
+  };
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center">
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
@@ -42,7 +36,10 @@ nevigate("/")
         <form onSubmit={registerHandler} className="space-y-5">
           {/* Email */}
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium text-gray-700"
+            >
               Email
             </label>
             <input
@@ -56,7 +53,10 @@ nevigate("/")
 
           {/* Password */}
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium text-gray-700"
+            >
               Password
             </label>
             <input
@@ -80,7 +80,7 @@ nevigate("/")
         </form>
 
         <p className="text-center text-sm text-gray-600 mt-4">
-          Already have an account?{' '}
+          Already have an account?{" "}
           <a href="/login" className="text-blue-500 hover:underline">
             Log in
           </a>

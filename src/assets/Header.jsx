@@ -8,7 +8,7 @@ import { VscGraph } from "react-icons/vsc";
 import { FaBars } from "react-icons/fa6";
 import { CiCalendarDate } from "react-icons/ci";
 import { PiPaintBrushBroadThin } from "react-icons/pi";
-
+import { FiLogOut } from "react-icons/fi";
 const Header = () => {
   const [toggle, Settoggle] = useState(false);
   const { user, logout } = useContext(Maincontext);
@@ -23,8 +23,9 @@ const Header = () => {
           {user ? (
             <>
               <div></div>
+
               <nav className="hidden md:flex space-x-6">
-               <Link
+                <Link
                   to={"/"}
                   className="text-gray-700 flex gap-2 cursor-pointer hover:bg-amber-100 p-2 rounded-xl hover:text-blue-600"
                 >
@@ -52,10 +53,10 @@ const Header = () => {
                 </Link>
                 <div
                   onClick={logout}
-                  className="text-gray-700 hover:text-blue-600"
+                  className="text-gray-700 hover:text-blue-600 mt-3"
                 >
                   {" "}
-                  Logout
+                  <FiLogOut />
                 </div>
               </nav>
             </>
@@ -88,12 +89,20 @@ const Header = () => {
                   <PiPaintBrushBroadThin className="mt-1.5" /> Excluded
                   Intervals
                 </Link>
-                <Link
-                  to={"/login"}
-                  className="text-gray-700 hover:text-blue-600"
-                >
-                  Login
-                </Link>
+                <div className="flex gap-3.5 mt-2">
+                  <Link
+                    to={"/login"}
+                    className="text-gray-700 hover:text-blue-600"
+                  >
+                    Login
+                  </Link>
+                  <Link
+                    className="text-gray-700 hover:text-blue-600"
+                    to={"/register"}
+                  >
+                    Register
+                  </Link>
+                </div>
               </nav>
             </>
           )}
@@ -155,9 +164,5 @@ const Header = () => {
     </header>
   );
 };
-
-
-
-
 
 export default Header;

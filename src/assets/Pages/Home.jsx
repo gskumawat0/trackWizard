@@ -9,14 +9,10 @@ import { GoGoal } from "react-icons/go";
 import { FaCalendarAlt } from "react-icons/fa";
 import { MdSecurity } from "react-icons/md";
 
-
 const Home = () => {
   return (
     <div className="bg-black w-full">
-        <div className="">
-
-            hgfdtghfyvujewrdw
-        </div>
+      <div className="">hgfdtghfyvujewrdw</div>
       <div className="flex mt-10 justify-center items-center m-auto   rounded-2xl w-xs h-9 bg-gray-100">
         <SlEnergy />
         <p className="text-gray-600 ">Track your activities with precision</p>
@@ -191,19 +187,18 @@ const Home = () => {
         </div>
       </div>
       <div className="mt-36">
-          <h1 className="text-gray-200 text-5xl mt-5 font-bold text-center ">
-        Ready to transform your productivity?
-
-      </h1>
-      <p className="text-gray-400 text-center mt-6">
-     Start tracking your activities today and discover insights that will help you achieve more.
-      </p>
-      <Link to={"/"}>
-      
-        <button className="bg-white text-black cursor-pointer flex justify-between items-center gap-4 p-4 ps-3.5 rounded-[8px] text-center m-auto mt-8">
-          Go to Dashboard <FaArrowRight />
-        </button>
-      </Link>
+        <h1 className="text-gray-200 text-5xl mt-5 font-bold text-center ">
+          Ready to transform your productivity?
+        </h1>
+        <p className="text-gray-400 text-center mt-6">
+          Start tracking your activities today and discover insights that will
+          help you achieve more.
+        </p>
+        <Link to={"/"}>
+          <button className="bg-white text-black cursor-pointer flex justify-between items-center gap-4 p-4 ps-3.5 rounded-[8px] text-center m-auto mt-8">
+            Go to Dashboard <FaArrowRight />
+          </button>
+        </Link>
       </div>
       <div className="pt-15"></div>
     </div>
