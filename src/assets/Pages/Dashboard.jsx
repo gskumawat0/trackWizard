@@ -1,11 +1,11 @@
-import React from "react";
-import { FaStrava } from "react-icons/fa";
-import { AiFillCheckCircle } from "react-icons/ai";
-import { PiPlayCircleLight } from "react-icons/pi";
-import { CiCircleChevRight } from "react-icons/ci";
-import { MdOutlineDangerous } from "react-icons/md";
-import { FaRegPlayCircle } from "react-icons/fa";
-import { CgPlayPauseO } from "react-icons/cg";
+import React from 'react';
+import { FaStrava } from 'react-icons/fa';
+import { AiFillCheckCircle } from 'react-icons/ai';
+import { PiPlayCircleLight } from 'react-icons/pi';
+import { CiCircleChevRight } from 'react-icons/ci';
+import { MdOutlineDangerous } from 'react-icons/md';
+import { FaRegPlayCircle } from 'react-icons/fa';
+import { CgPlayPauseO } from 'react-icons/cg';
 const Dashboard = () => {
   return (
     <div className=" ps-3.5">
@@ -34,7 +34,7 @@ const Dashboard = () => {
         </div>
         <div className="rounded-[9px]   border-[1px]">
           <p className="flex justify-between p-6">
-            in Progress{" "}
+            in Progress{' '}
             <PiPlayCircleLight className="font-bold text-blue-600" />
           </p>
           <h1 className="font-bold text-4xl text-blue-600 ps-5.5">0</h1>
@@ -51,7 +51,7 @@ const Dashboard = () => {
       <div className="mt-9 me-5  grid grid-cols-1 sm:grid-cols-1  md:grid-cols-4 gap-3">
         <div className="rounded-[9px]   border-[1px]">
           <p className="flex justify-between p-6">
-            completed hours{" "}
+            completed hours{' '}
             <CiCircleChevRight className="font-bold text-green-300" />
           </p>
           <h1 className="font-bold text-4xl text-green-500 ps-5.5">0h</h1>

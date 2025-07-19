@@ -1,5 +1,5 @@
-import React from "react";
-import { FaStrava } from "react-icons/fa";
+import React from 'react';
+import { FaStrava } from 'react-icons/fa';
 
 const Footer = () => {
   const newyear = new Date().getFullYear();
@@ -77,13 +77,13 @@ const Footer = () => {
               </a>
             </ul>
             <ul>
-              {" "}
+              {' '}
               <a href="#" class="hover:text-white transition">
                 Privacy Policy
               </a>
             </ul>
             <ul>
-              {" "}
+              {' '}
               <a href="#" class="hover:text-white transition">
                 Terms of Service
               </a>

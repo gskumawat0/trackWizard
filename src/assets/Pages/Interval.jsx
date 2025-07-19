@@ -1,8 +1,8 @@
-import React from "react";
-import { CiFilter } from "react-icons/ci";
-import { MdError } from "react-icons/md";
-import { FaCalendarAlt } from "react-icons/fa";
-import { MdOutlineAccessTime } from "react-icons/md";
+import React from 'react';
+import { CiFilter } from 'react-icons/ci';
+import { MdError } from 'react-icons/md';
+import { FaCalendarAlt } from 'react-icons/fa';
+import { MdOutlineAccessTime } from 'react-icons/md';
 const Interval = () => {
   return (
     <div>
@@ -89,14 +89,14 @@ const Interval = () => {
         </div>
         <div className="border-[1px] rounded-2xl p-8  ">
           <p className="flex justify-between">
-            Active Sessions{" "}
-            <div className="w-4 h-4 rounded-4xl mt-4 ms-8 bg-amber-300"></div>{" "}
+            Active Sessions{' '}
+            <div className="w-4 h-4 rounded-4xl mt-4 ms-8 bg-amber-300"></div>{' '}
           </p>
           <p className="font-bold text-2xl mt-5">0</p>
         </div>
         <div className="border-[1px] rounded-2xl p-8  ">
           <p className="flex justify-between">
-            Expired Items{" "}
+            Expired Items{' '}
             <div className="w-4 h-4 rounded-4xl mt-4 ms-8 bg-red-500"></div>
           </p>
           <p className="font-bold text-2xl text-red">0</p>
@@ -129,9 +129,9 @@ const Interval = () => {
               Skip activity log generation during specific months of the year.
             </p>
           </div>
-        </div>{" "}
+        </div>{' '}
         <p className="mt-5">
-          {" "}
+          {' '}
           <span className="font-bold">Note:</span> These settings only affect
           automatic generation. You can still manually create activity logs on
           excluded days.

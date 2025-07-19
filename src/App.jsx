@@ -1,71 +1,69 @@
-import React from "react";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import React from 'react';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-import Login from "./assets/Login";
-import { initializeApp } from "firebase/app";
+import Login from './assets/Login';
+import { initializeApp } from 'firebase/app';
 
-import Header from "./assets/Header";
-import Register from "./assets/Register";
-import Layout from "./assets/Pages/Layout";
-import Home from "./assets/Pages/Home";
-import Dashboard from "./assets/Pages/Dashboard";
-import Activity from "./assets/Pages/Activity";
-import Activity_logs from "./assets/Pages/Activity_logs";
-import Interval from "./assets/Pages/Interval";
-
-// firebase-config.js
-// import firebaseApp from "./firebase-config";
+import Header from './assets/Header';
+import Register from './assets/Register';
+import Layout from './assets/Pages/Layout';
+import Home from './assets/Pages/Home';
+import Dashboard from './assets/Pages/Dashboard';
+import Activity from './assets/Pages/Activity';
+import Activity_logs from './assets/Pages/Activity_logs';
+import Interval from './assets/Pages/Interval';
 
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
-  appId: import.meta.env.VITE_FIREBASE_APP_ID,
-  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
+  apiKey: 'AIzaSyCl97RQIp8jZm0xvbChPOoM25Og-1puhUU',
+  authDomain: 'track-11125.firebaseapp.com',
+  projectId: 'track-11125',
+  storageBucket: 'track-11125.firebasestorage.app',
+  messagingSenderId: '693464443516',
+  appId: '1:693464443516:web:618627de3194f2e8dd37f9',
+  measurementId: 'G-PKY5NWW0RC',
 };
 
-const firebaseApp = initializeApp(firebaseConfig);
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
 
 function App() {
   const routers = createBrowserRouter([
     {
-      path: "/",
+      path: '/',
       element: <Layout />,
       children: [
         {
-          path: "/home",
+          path: '/',
           element: <Home />,
         },
         {
-          path: "/header",
+          path: '/header',
           element: <Header />,
         },
         {
-          path: "/",
+          path: '/dashboard',
           element: <Dashboard />,
         },
         {
-          path: "/activity",
+          path: '/activity',
           element: <Activity />,
         },
         {
-          path: "/activity_logs",
+          path: '/activity_logs',
           element: <Activity_logs />,
         },
         {
-          path: "/interval",
+          path: '/interval',
           element: <Interval />,
         },
       ],
     },
     {
-      path: "/register",
+      path: '/register',
       element: <Register />,
     },
     {
-      path: "/login",
+      path: '/login',
       element: <Login />,
     },
   ]);

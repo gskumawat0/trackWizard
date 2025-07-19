@@ -1,38 +1,53 @@
-import React, { useContext } from "react";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { Maincontext } from "./Pages/Context";
-import { useNavigate } from "react-router-dom";
+import React, { useContext, useState } from 'react';
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
+import { Maincontext } from './Pages/Context';
+import { useNavigate } from 'react-router-dom';
+import { jwtDecode } from 'jwt-decode';
 const Register = () => {
+  const [errorMessage, setErrorMessage] = useState('');
   const { userHandler } = useContext(Maincontext);
   const nevigate = useNavigate();
   const registerHandler = (e) => {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
+
     const auth = getAuth();
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
+        // Signed up
         const user = userCredential.user;
         userHandler(user.toJSON());
-        nevigate("/home");
+        nevigate('/');
+        // ...
       })
+
       .catch((error) => {
-        if (error.code === "auth/email-already-in-use") {
-          alert("This email is already registered.");
-        } else if (error.code === "auth/weak-password") {
-          alert("Password should be at least 6 characters.");
+        if (error.code === 'auth/email-already-in-use') {
+          setErrorMessage('This email is already registered.');
+        } else if (error.code === 'auth/weak-password') {
+          setErrorMessage('Password should be at least 6 characters.');
         } else {
-          alert("Registration failed: " + error.message);
+          setErrorMessage('Registration failed: ' + error.message);
         }
       });
   };
+  const handlersucess = (credentialResponse) => {
+    console.log('handlersucess h', credentialResponse);
+    const decode = jwtDecode(credentialResponse?.credential);
+    console.log(decode);
+  };
+  const handleerror = () => {
+    console.log('google error');
+  };
+
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center">
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
         <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">
           Create Account
         </h2>
-
         <form onSubmit={registerHandler} className="space-y-5">
           {/* Email */}
           <div>
@@ -78,13 +93,16 @@ const Register = () => {
             </button>
           </div>
         </form>
-
         <p className="text-center text-sm text-gray-600 mt-4">
-          Already have an account?{" "}
+          Already have an account?{' '}
           <a href="/login" className="text-blue-500 hover:underline">
             Log in
           </a>
         </p>
+        <GoogleOAuthProvider clientId="1037279978173-qo3j66t1uq7d9f2ed63rf2e83i1lhrkl.apps.googleusercontent.com">
+          <GoogleLogin onSuccess={handlersucess} onError={handleerror} />
+        </GoogleOAuthProvider>
+        ;<div className="text-red-500 mt-4 text-center">{errorMessage}</div>
       </div>
     </div>
   );
