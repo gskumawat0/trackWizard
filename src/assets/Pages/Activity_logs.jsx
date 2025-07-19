@@ -1,14 +1,14 @@
-import React from "react";
-import { LuDownload } from "react-icons/lu";
-import { MdOutlineDateRange } from "react-icons/md";
-import { CiFilter } from "react-icons/ci";
-import { PiLessThanThin } from "react-icons/pi";
-import { PiGreaterThan } from "react-icons/pi";
-import { MdOutlineAccessTime } from "react-icons/md";
-import { CgPlayPauseO } from "react-icons/cg";
-import { IoPlayCircle } from "react-icons/io5";
-import { AiFillCheckCircle } from "react-icons/ai";
-import { FaCalendarAlt } from "react-icons/fa";
+import React from 'react';
+import { LuDownload } from 'react-icons/lu';
+import { MdOutlineDateRange } from 'react-icons/md';
+import { CiFilter } from 'react-icons/ci';
+import { PiLessThanThin } from 'react-icons/pi';
+import { PiGreaterThan } from 'react-icons/pi';
+import { MdOutlineAccessTime } from 'react-icons/md';
+import { CgPlayPauseO } from 'react-icons/cg';
+import { IoPlayCircle } from 'react-icons/io5';
+import { AiFillCheckCircle } from 'react-icons/ai';
+import { FaCalendarAlt } from 'react-icons/fa';
 
 const Activity_logs = () => {
   return (
@@ -20,7 +20,7 @@ const Activity_logs = () => {
         </div>
         <div className="  grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4   gap-5">
           <button className="border-1 cursor-pointer  p-3 rounded-2xl flex gap-1">
-            {" "}
+            {' '}
             + Generate Today's Logs
           </button>
           <button className="border-1 cursor-pointer  p-3 rounded-2xl flex gap-1">
@@ -95,7 +95,7 @@ const Activity_logs = () => {
         <div className="mt-6  grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4   gap-4">
           <div className=" h-48  rounded-2xl p-5 ">
             <p className="flex gap-2 font-bold">
-              <MdOutlineAccessTime className="text-amber-500 h-6 text-3xl" />{" "}
+              <MdOutlineAccessTime className="text-amber-500 h-6 text-3xl" />{' '}
               Pending 0
             </p>
             <p className="text-center mt-8">no pending task</p>
@@ -115,7 +115,7 @@ const Activity_logs = () => {
           </div>
           <div className="bg-blue-100 h-48  rounded-2xl p-5 ">
             <p className="flex gap-2 font-bold">
-              <AiFillCheckCircle className="text-amber-500 h-6 text-3xl" />{" "}
+              <AiFillCheckCircle className="text-amber-500 h-6 text-3xl" />{' '}
               Complete 0
             </p>
             <p className="text-center mt-8">no pending task</p>
@@ -125,28 +125,28 @@ const Activity_logs = () => {
         <div className="m-5   grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4  gap-4">
           <div className="border-[1px] rounded-2xl p-8 ">
             <p className="flex justify-between">
-              Today's Completed Sessions{" "}
+              Today's Completed Sessions{' '}
               <FaCalendarAlt className="mt-4 ms-8 text-3xl" />
             </p>
             <p className="font-bold text-2xl">0</p>
           </div>
           <div className="border-[1px] rounded-2xl p-8  ">
             <p className="flex justify-between">
-              Today's Total Hours{" "}
+              Today's Total Hours{' '}
               <MdOutlineAccessTime className="mt-4 ms-8 text-3xl" />
             </p>
             <p className="font-bold text-2xl">0m</p>
           </div>
           <div className="border-[1px] rounded-2xl p-8  ">
             <p className="flex justify-between">
-              Active Sessions{" "}
-              <div className="w-4 h-4 rounded-4xl mt-4 ms-8 bg-amber-300"></div>{" "}
+              Active Sessions{' '}
+              <div className="w-4 h-4 rounded-4xl mt-4 ms-8 bg-amber-300"></div>{' '}
             </p>
             <p className="font-bold text-2xl mt-5">0</p>
           </div>
           <div className="border-[1px] rounded-2xl p-8  ">
             <p className="flex justify-between">
-              Expired Items{" "}
+              Expired Items{' '}
               <div className="w-4 h-4 rounded-4xl mt-4 ms-8 bg-red-500"></div>
             </p>
             <p className="font-bold text-2xl text-red">0</p>

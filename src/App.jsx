@@ -1,9 +1,8 @@
-
-import React from 'react'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import React from 'react';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import Login from './assets/Login';
-import { initializeApp } from "firebase/app";
+import { initializeApp } from 'firebase/app';
 
 import Header from './assets/Header';
 import Register from './assets/Register';
@@ -14,66 +13,62 @@ import Activity from './assets/Pages/Activity';
 import Activity_logs from './assets/Pages/Activity_logs';
 import Interval from './assets/Pages/Interval';
 
-
-
 const firebaseConfig = {
-  apiKey: "AIzaSyB460dkuA4hHvat8IImc8CihfOK0aP2rl0",
-  authDomain: "details-2e608.firebaseapp.com",
-  projectId: "details-2e608",
-  storageBucket: "details-2e608.firebasestorage.app",
-  messagingSenderId: "60560790576",
-  appId: "1:60560790576:web:f8efa9c129fb24da5389f5",
-  measurementId: "G-DRXT3DHRV1"
+  apiKey: 'AIzaSyCl97RQIp8jZm0xvbChPOoM25Og-1puhUU',
+  authDomain: 'track-11125.firebaseapp.com',
+  projectId: 'track-11125',
+  storageBucket: 'track-11125.firebasestorage.app',
+  messagingSenderId: '693464443516',
+  appId: '1:693464443516:web:618627de3194f2e8dd37f9',
+  measurementId: 'G-PKY5NWW0RC',
 };
 
 // Initialize Firebase
-const firebaseapp = initializeApp(firebaseConfig);
-
-
+const app = initializeApp(firebaseConfig);
 
 function App() {
-  
-const routers = createBrowserRouter(
-  [
+  const routers = createBrowserRouter([
     {
-      path:'/',
-      element:<Layout/>,
-      children:[
+      path: '/',
+      element: <Layout />,
+      children: [
         {
-          path:'/home',
-          element:<Home/>
-        },{
-      path:'/header',
-      element:<Header/>
-    },{
-      path:'/',
-      element:<Dashboard/>
-    },{
-      path:'/activity',
-      element:<Activity/>
-    },{
-      path:"/activity_logs",
-      element:<Activity_logs/>
-    },{
-      path:"/interval",
-      element:<Interval/>
-    }
-      ]
-    }
-   ,{
-      path:'/register',
-      element:<Register/>
+          path: '/',
+          element: <Home />,
+        },
+        {
+          path: '/header',
+          element: <Header />,
+        },
+        {
+          path: '/dashboard',
+          element: <Dashboard />,
+        },
+        {
+          path: '/activity',
+          element: <Activity />,
+        },
+        {
+          path: '/activity_logs',
+          element: <Activity_logs />,
+        },
+        {
+          path: '/interval',
+          element: <Interval />,
+        },
+      ],
     },
-         {
-      path:'/login',
-      element:<Login/>
-    }
-  ]
-);
+    {
+      path: '/register',
+      element: <Register />,
+    },
+    {
+      path: '/login',
+      element: <Login />,
+    },
+  ]);
 
-  return (
-   <RouterProvider router={routers}/>
-  )
+  return <RouterProvider router={routers} />;
 }
 
-export default App
+export default App;
