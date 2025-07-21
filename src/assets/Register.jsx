@@ -104,7 +104,7 @@ const Register = () => {
         </GoogleOAuthProvider>
         ;<div className="text-red-500 mt-4 text-center">{errorMessage}</div>
       </div>
-    </div> 
+    </div>
   );
 };
 
