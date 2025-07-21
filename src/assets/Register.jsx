@@ -99,12 +99,12 @@ const Register = () => {
             Log in
           </a>
         </p>
-        <GoogleOAuthProvider clientId="1037279978173-qo3j66t1uq7d9f2ed63rf2e83i1lhrkl.apps.googleusercontent.com">
+        <GoogleOAuthProvider clientId="1037279978173-r5puq66g5eieqp9s7im21jfjnkm9r4s6.apps.googleusercontent.com">
           <GoogleLogin onSuccess={handlersucess} onError={handleerror} />
         </GoogleOAuthProvider>
         ;<div className="text-red-500 mt-4 text-center">{errorMessage}</div>
       </div>
-    </div>
+    </div> 
   );
 };
 
