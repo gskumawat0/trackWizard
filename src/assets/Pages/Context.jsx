@@ -1,39 +1,36 @@
-import React, {  createContext, useContext, useEffect, useState } from "react";
-
-
-
+import React, { createContext, useEffect, useState } from 'react';
 
 const Maincontext = createContext();
 
-const   Context = (props) =>{
+const Context = (props) => {
+  const [user, Setuser] = useState();
 
-    const [user,Setuser] = useState();
+  useEffect(() => {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser != null) {
+      Setuser(JSON.parse(storedUser));
+    }
+  }, []);
 
+  const userHandler = (data) => {
+    Setuser(data);
+    localStorage.setItem('user', JSON.stringify(data));
+  };
 
+  function logout() {
+    Setuser(null);
+    localStorage.removeItem('user');
 
-    useEffect(() => {
-const user = localStorage.getItem("user");
-if(user  != null){
-    Setuser(JSON.parse(user))
-}
-    },[])
+    window.location.href = '/';
+  }
 
-const userHandler = (data) => {
-Setuser(data)
-localStorage.setItem("user",JSON.stringify(data))
-}
+  return (
+    <Maincontext.Provider value={{ user, userHandler, logout }}>
+      {props.children}
+    </Maincontext.Provider>
+  );
+};
 
-function logout () {
-Setuser(null)
-localStorage.removeItem(user)
-}
-return(
-   <Maincontext.Provider value={{user,userHandler,logout}}>
-    {props.children}
-   </Maincontext.Provider>
-)
-}
+export default Context;
 
- export default Context
-
-export { Maincontext }
+export { Maincontext };

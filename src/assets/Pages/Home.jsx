@@ -1,22 +1,18 @@
-import React from "react";
-import { SlEnergy } from "react-icons/sl";
-import { FaArrowRight } from "react-icons/fa6";
-import { Link } from "react-router-dom";
-import { AiFillCheckCircle } from "react-icons/ai";
-import { IoMdTime } from "react-icons/io";
-import { IoAnalyticsOutline } from "react-icons/io5";
-import { GoGoal } from "react-icons/go";
-import { FaCalendarAlt } from "react-icons/fa";
-import { MdSecurity } from "react-icons/md";
-
+import React from 'react';
+import { SlEnergy } from 'react-icons/sl';
+import { FaArrowRight } from 'react-icons/fa6';
+import { Link } from 'react-router-dom';
+import { AiFillCheckCircle } from 'react-icons/ai';
+import { IoMdTime } from 'react-icons/io';
+import { IoAnalyticsOutline } from 'react-icons/io5';
+import { GoGoal } from 'react-icons/go';
+import { FaCalendarAlt } from 'react-icons/fa';
+import { MdSecurity } from 'react-icons/md';
 
 const Home = () => {
   return (
     <div className="bg-black w-full">
-        <div className="">
-
-            hgfdtghfyvujewrdw
-        </div>
+      <div className="">hgfdtghfyvujewrdw</div>
       <div className="flex mt-10 justify-center items-center m-auto   rounded-2xl w-xs h-9 bg-gray-100">
         <SlEnergy />
         <p className="text-gray-600 ">Track your activities with precision</p>
@@ -25,11 +21,11 @@ const Home = () => {
         Master Your Time with Smart <br /> Tracking
       </h1>
       <p className="text-gray-400 text-center mt-9">
-        TrackMe helps you monitor activities, analyze productivity patterns, and{" "}
+        TrackMe helps you monitor activities, analyze productivity patterns, and{' '}
         <br /> optimize your time with intelligent scheduling and detailed
         insights.
       </p>
-      <Link to={"/"}>
+      <Link to={'/'}>
         <button className="bg-white text-black cursor-pointer flex justify-between items-center gap-4 p-4 ps-3.5 rounded-[8px] text-center m-auto mt-9">
           Go to Dashboard <FaArrowRight />
         </button>
@@ -38,7 +34,7 @@ const Home = () => {
         Everything you need to track your productivity
       </h1>
       <p className="text-center text-gray-300 text-2xl mt-3">
-        Powerful features designed to help you understand and improve <br />{" "}
+        Powerful features designed to help you understand and improve <br />{' '}
         your time management
       </p>
 
@@ -128,7 +124,7 @@ const Home = () => {
             <FaCalendarAlt className="text-5xl mb-4" />
             <h1 className="text-2xl font-bold mb-2">Activity Logs</h1>
             <p className="mb-4">
-              Comprehensive logging system for detailed activity history{" "}
+              Comprehensive logging system for detailed activity history{' '}
             </p>
             <div className="flex items-start gap-2 mb-2">
               <AiFillCheckCircle className="mt-1" />
@@ -191,19 +187,18 @@ const Home = () => {
         </div>
       </div>
       <div className="mt-36">
-          <h1 className="text-gray-200 text-5xl mt-5 font-bold text-center ">
-        Ready to transform your productivity?
-
-      </h1>
-      <p className="text-gray-400 text-center mt-6">
-     Start tracking your activities today and discover insights that will help you achieve more.
-      </p>
-      <Link to={"/"}>
-      
-        <button className="bg-white text-black cursor-pointer flex justify-between items-center gap-4 p-4 ps-3.5 rounded-[8px] text-center m-auto mt-8">
-          Go to Dashboard <FaArrowRight />
-        </button>
-      </Link>
+        <h1 className="text-gray-200 text-5xl mt-5 font-bold text-center ">
+          Ready to transform your productivity?
+        </h1>
+        <p className="text-gray-400 text-center mt-6">
+          Start tracking your activities today and discover insights that will
+          help you achieve more.
+        </p>
+        <Link to={'/'}>
+          <button className="bg-white text-black cursor-pointer flex justify-between items-center gap-4 p-4 ps-3.5 rounded-[8px] text-center m-auto mt-8">
+            Go to Dashboard <FaArrowRight />
+          </button>
+        </Link>
       </div>
       <div className="pt-15"></div>
     </div>
