@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { FiMoreVertical, FiLogOut } from 'react-icons/fi';
 import { IoMdClose } from 'react-icons/io';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Maincontext } from './Pages/Context';
 import { SlGraph } from 'react-icons/sl';
 import { VscGraph } from 'react-icons/vsc';
@@ -12,76 +12,86 @@ import { PiPaintBrushBroadThin } from 'react-icons/pi';
 const Header = () => {
   const [toggle, Settoggle] = useState(false);
   const { user, logout } = useContext(Maincontext);
+  const location = useLocation();
+  const name = location.state?.name;
 
   return (
-    <header className="shadow-md">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-        <div className="flex justify-between items-center h-16">
+    <header className="shadow-md ">
+      <div className="">
+        <div className="flex justify-between items-center ms-20 me-20 h-16">
           <div className="flex-shrink-0 flex font-bold text-3xl">
             <SlGraph className="me-3 mt-1 text-black text-3xl" /> Track Me
           </div>
+          <div>
+            {user ? (
+              <>
+                {/* Desktop Navigation */}
+                <nav className="hidden  md:flex space-x-6">
+                  <Link
+                    to={'/dashboard'}
+                    className="text-gray-700 flex gap-2 cursor-pointer hover:bg-amber-100 p-2 rounded-xl hover:text-blue-600"
+                  >
+                    <VscGraph className="mt-1.5" /> Dashboard
+                  </Link>
+                  <Link
+                    to={'/activity'}
+                    className="text-gray-700 flex gap-2 cursor-pointer hover:bg-amber-100 p-2 rounded-xl hover:text-blue-600"
+                  >
+                    <FaBars className="mt-1.5" /> Activies
+                  </Link>
 
-          {user ? (
-            <>
-              {/* Desktop Navigation */}
-              <nav className="hidden md:flex space-x-6">
-                <Link
-                  to={'/dashboard'}
-                  className="text-gray-700 flex gap-2 cursor-pointer hover:bg-amber-100 p-2 rounded-xl hover:text-blue-600"
-                >
-                  <VscGraph className="mt-1.5" /> Dashboard
-                </Link>
-                <Link
-                  to={'/activity'}
-                  className="text-gray-700 flex gap-2 cursor-pointer hover:bg-amber-100 p-2 rounded-xl hover:text-blue-600"
-                >
-                  <FaBars className="mt-1.5" /> Activies
-                </Link>
-                <Link
-                  to={'/activity_logs'}
-                  className="text-gray-700 flex gap-2 cursor-pointer hover:bg-amber-100 p-2 rounded-xl hover:text-blue-600"
-                >
-                  <CiCalendarDate className="mt-1.5" />
-                  Activity Logs
-                </Link>
-                <Link
-                  to={'/interval'}
-                  className="text-gray-700 flex gap-2 cursor-pointer hover:bg-amber-100 p-2 rounded-xl hover:text-blue-600"
-                >
-                  <PiPaintBrushBroadThin className="mt-1.5" /> Excluded
-                  Intervals
-                </Link>
-                <div
-                  onClick={() => {
-                    logout();
-                  }}
-                  className="text-gray-700 hover:text-blue-600 mt-3 cursor-pointer"
-                >
-                  <FiLogOut />
-                </div>
-              </nav>
-            </>
-          ) : (
-            <>
-              {/* Desktop Login/Register */}
-              <nav className="hidden md:flex space-x-6">
-                <div className="flex gap-3.5 mt-2">
                   <Link
-                    to={'/login'}
-                    className="text-gray-700 hover:text-blue-600"
+                    to={'/activity_logs'}
+                    className="text-gray-700 flex gap-2 cursor-pointer hover:bg-amber-100 p-2 rounded-xl hover:text-blue-600"
                   >
-                    Login
+                    <CiCalendarDate className="mt-1.5" />
+                    Activity Logs
                   </Link>
                   <Link
-                    className="text-gray-700 hover:text-blue-600"
-                    to={'/register'}
+                    to={'/interval'}
+                    className="text-gray-700 flex gap-2 cursor-pointer hover:bg-amber-100 p-2 rounded-xl hover:text-blue-600"
                   >
-                    Register
+                    <PiPaintBrushBroadThin className="mt-1.5" /> Excluded
+                    Intervals
                   </Link>
-                </div>
-              </nav>
-            </>
-          )}
+
+                  <div className="mt-2 font-bold">
+                    {' '}
+                    <h1>Welcome : {name ? name : 'Guest'}</h1>
+                  </div>
+                  <div
+                    onClick={() => {
+                      logout();
+                    }}
+                    className="text-gray-700 hover:text-blue-600 mt-3 cursor-pointer"
+                  >
+                    <FiLogOut />
+                  </div>
+                </nav>
+              </>
+            ) : (
+              <>
+                {/* Desktop Login/Register */}
+                <nav className="hidden md:flex space-x-6">
+                  <div className="flex gap-3.5 mt-2">
+                    <Link
+                      to={'/login'}
+                      className="text-gray-700 hover:text-blue-600"
+                    >
+                      Login
+                    </Link>
+
+                    <Link
+                      className="text-gray-700 hover:text-blue-600"
+                      to={'/register'}
+                    >
+                      Register
+                    </Link>
+                  </div>
+                </nav>
+              </>
+            )}
+          </div>
 
           {/* Mobile Menu Toggle */}
           {!toggle ? (

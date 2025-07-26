@@ -7,9 +7,14 @@ const Context = (props) => {
 
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
-    if (storedUser != null) {
-      Setuser(JSON.parse(storedUser));
-    }
+  
+    if (storedUser) {
+  try {
+    Setuser(JSON.parse(storedUser));  // Parse the stored JSON
+  } catch (error) {
+    console.error(error);
+  }
+}
   }, []);
 
   const userHandler = (data) => {

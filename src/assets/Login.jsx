@@ -1,48 +1,68 @@
 import React, { useContext, useState } from 'react';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
-
-import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
-
-import { Link, useNavigate } from 'react-router-dom';
-
+import { useNavigate, Link } from 'react-router-dom';
 import { Maincontext } from './Pages/Context';
+import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 
 const Login = () => {
   const { userHandler } = useContext(Maincontext);
-  const [errom, Seterrorm] = useState('');
   const navigate = useNavigate();
 
-  const registerHandler = (e) => {
+  const [errorMessage, setErrorMessage] = useState('');
+
+  const handleLogin = async (e) => {
     e.preventDefault();
+
     const email = e.target.email.value;
     const password = e.target.password.value;
-    const auth = getAuth();
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        userHandler(user);
-        localStorage.setItem('user', JSON.stringify(user));
-        navigate('/');
-      })
-      .catch((error) => {
-        console.error('Login Error:', error.code, error.message);
-        Seterrorm('Login failed: ' + error.message);
-      });
+
+    const item = { email, password };
+
+    try {
+      const result = await fetch(
+        'https://trackme-api.onrender.com/api/v1/auth/login',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            accept: 'application/json',
+          },
+          body: JSON.stringify(item),
+        },
+      );
+
+      const data = await result.json();
+      if (!result.ok) {
+        throw new Error(data.message || 'Login failed');
+      }
+
+      userHandler(data);
+      localStorage.setItem('user', JSON.stringify(data));
+
+      const name = data?.data?.user?.name;
+      navigate('/', { state: { name } });
+    } catch (err) {
+      console.error('Login Error:', err.message);
+      setErrorMessage(err.message);
+    }
   };
-  const handlersucess = (credentialResponse) => {
-    console.log('handlersucess h', credentialResponse);
+
+  const handleGoogleSuccess = (credentialResponse) => {
+    console.log('Google login success:', credentialResponse);
   };
-  const handleerror = () => {
-    console.log('google error');
+
+  const handleGoogleError = () => {
+    console.log('Google login failed');
   };
+
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center">
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
         <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">
-          Welcome to Trackme
+          Welcome to TrackMe
         </h2>
         <p className="text-center mb-4">Sign in to your account to continue</p>
-        <form onSubmit={registerHandler} className="space-y-5">
+
+        <form onSubmit={handleLogin} className="space-y-5">
           <div>
             <label
               htmlFor="email"
@@ -52,10 +72,10 @@ const Login = () => {
             </label>
             <input
               type="email"
-              id="email"
               name="email"
+              id="email"
               required
-              className="mt-1 w-full px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full mt-1 px-4 py-2 border rounded-md shadow-sm focus:ring-2 focus:ring-blue-500"
             />
           </div>
 
@@ -68,35 +88,40 @@ const Login = () => {
             </label>
             <input
               type="password"
-              id="password"
               name="password"
+              id="password"
               required
-              className="mt-1 w-full px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full mt-1 px-4 py-2 border rounded-md shadow-sm focus:ring-2 focus:ring-blue-500"
             />
           </div>
 
-          <div>
-            <button
-              type="submit"
-              className="w-full bg-blue-600 hover:bg-blue-700 cursor-pointer text-white font-semibold py-2 px-4 rounded-md transition duration-300"
-            >
-              Login
-            </button>
-          </div>
-        </form>
-        <p className="text-center text-sm text-gray-600 mt-4">
-          Didn't have an account?{' '}
-          <Link
-            to="/register"
-            className="text-blue-500 cursor-pointer hover:underline"
+          <button
+            type="submit"
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md transition"
           >
+            Login
+          </button>
+        </form>
+
+        <p className="text-center text-sm text-gray-600 mt-4">
+          Don't have an account?{' '}
+          <Link to="/register" className="text-blue-500 hover:underline">
             Register
           </Link>
         </p>
-        <GoogleOAuthProvider clientId="1037279978173-qo3j66t1uq7d9f2ed63rf2e83i1lhrkl.apps.googleusercontent.com">
-          <GoogleLogin onSuccess={handlersucess} onError={handleerror} />
-        </GoogleOAuthProvider>
-        ;<p className="text-red-500 mt-4 text-center">{errom}</p>
+
+        <div className="mt-4 flex justify-center">
+          <GoogleOAuthProvider clientId="1037279978173-r5puq66g5eieqp9s7im21jfjnkm9r4s6.apps.googleusercontent.com">
+            <GoogleLogin
+              onSuccess={handleGoogleSuccess}
+              onError={handleGoogleError}
+            />
+          </GoogleOAuthProvider>
+        </div>
+
+        {errorMessage && (
+          <p className="text-red-500 mt-4 text-center">{errorMessage}</p>
+        )}
       </div>
     </div>
   );
