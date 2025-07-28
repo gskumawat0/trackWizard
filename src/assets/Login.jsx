@@ -1,94 +1,150 @@
-import React, { useContext } from 'react';
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+// src/Login.jsx
+import React, { useContext, useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 import { Maincontext } from './Pages/Context';
-import { Link, useNavigate } from 'react-router-dom';
-
-
-
-
+import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
+import { jwtDecode } from 'jwt-decode';
 
 
 const Login = () => {
-  const {userHandler} = useContext(Maincontext);
- const nevigate = useNavigate()
+  const { userHandler } = useContext(Maincontext);
+  const navigate = useNavigate();
 
-  const registerHandler = (e) => {
-    e.preventDefault()
+  const [errorMessage, setErrorMessage] = useState('');
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
     const email = e.target.email.value;
     const password = e.target.password.value;
-    
-const auth = getAuth();
-signInWithEmailAndPassword(auth, email, password)
-  .then((userCredential) => {
-    // Signed in 
-    const user = userCredential.user;
-    userHandler(user)
-    localStorage.setItem("user".toString(user))
-    nevigate('/')
-    // ...
-  })
-  .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-  });
 
-  }
+    const item = { email, password };
+
+    try {
+      const result = await fetch(
+        'https://trackme-api.onrender.com/api/v1/auth/login',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            accept: 'application/json',
+          },
+          body: JSON.stringify(item),
+        },
+      );
+
+      const data = await result.json();
+
+      if (!result.ok) {
+        throw new Error(data.message || 'Login failed');
+      }
+
+      
+      const user = data.data.user;
+      userHandler(user);
+      localStorage.setItem('user', JSON.stringify(user));
+     
+
+      navigate('/');
+    } catch (err) {
+      console.error('Login Error:', err.message);
+      setErrorMessage(err.message);
+    }
+  };
+
+  const handleGoogleSuccess = (credentialResponse) => {
+    console.log('Google login success:', credentialResponse);
+    const decode = jwtDecode(credentialResponse?.credential);
+    const userData = {
+      name: decode.name,
+      email: decode.email,
+    };
+
+    userHandler(userData);
+    localStorage.setItem('user', JSON.stringify(userData));
+    console.log(decode);
+    console.log(userData);
+   
+    navigate('/');
+    // Optional: handle Google response here
+  };
+
+  const handleGoogleError = () => {
+    console.log('Google login failed');
+  };
+
+
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center">
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
         <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">
-          Welcome to Trackme
+          Welcome to TrackMe
         </h2>
-        <p className='text-center mb-4'>Sign in to your account to continue</p>
+        <p className="text-center mb-4">Sign in to your account to continue</p>
 
-        <form onSubmit={registerHandler} className="space-y-5">
-          {/* Email */}
+        <form onSubmit={handleLogin} className="space-y-5">
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium text-gray-700"
+            >
               Email
             </label>
             <input
               type="email"
-              id="email"
               name="email"
+              id="email"
               required
-              className="mt-1 w-full px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full mt-1 px-4 py-2 border rounded-md shadow-sm focus:ring-2 focus:ring-blue-500"
             />
           </div>
 
-          {/* Password */}
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium text-gray-700"
+            >
               Password
             </label>
             <input
               type="password"
-              id="password"
               name="password"
+              id="password"
               required
-              className="mt-1 w-full px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full mt-1 px-4 py-2 border rounded-md shadow-sm focus:ring-2 focus:ring-blue-500"
             />
           </div>
 
-          {/* Submit Button */}
-          <div>
-            <button
-              type="submit"
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md transition duration-300"
-            >
-              Login
-            </button>
-          </div>
+          <button
+            type="submit"
+            
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md transition"
+          >
+            Login
+          </button>
         </form>
 
         <p className="text-center text-sm text-gray-600 mt-4">
-          Did't have an account?{' '}
-        
-          <a href="/register" className="text-blue-500 hover:underline">
-         Register
-          </a>
+          Don't have an account?{' '}
+          <Link to="/register" className="text-blue-500 hover:underline">
+            Register
+          </Link>
         </p>
+
+        <div className="mt-4 flex justify-center">
+          <GoogleOAuthProvider clientId="1037279978173-r5puq66g5eieqp9s7im21jfjnkm9r4s6.apps.googleusercontent.com">
+            <GoogleLogin
+              onSuccess={handleGoogleSuccess}
+              onError={handleGoogleError}
+            />
+          </GoogleOAuthProvider>
+        </div>
+
+        {errorMessage && (
+          <p className="text-red-500 mt-4 text-center">{errorMessage}</p>
+        )}
       </div>
+
     </div>
   );
 };
