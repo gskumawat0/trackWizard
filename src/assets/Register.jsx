@@ -42,20 +42,24 @@ const Register = () => {
   const handlersucess = (credentialResponse) => {
     console.log('handlersucess h', credentialResponse);
     const decode = jwtDecode(credentialResponse?.credential);
+    const userData = {
+      name: decode.name,
+      email: decode.email,
+    };
+
+    userHandler(userData);
+    localStorage.setItem('user', JSON.stringify(userData));
     console.log(decode);
+    console.log(userData);
+    nevigate('/');
   };
+
   const handleerror = () => {
     console.log('google error');
   };
-  // const handlersucess = (credentialResponse) => {
-  //   console.log('handlersucess h', credentialResponse);
-  // };
-  // const handleerror = () => {
-  //   console.log('google error');
-  // };
 
   async function login() {
-    // console.log(email, password);
+    console.log(email, password);
     let item = { email, password, name };
     let result = await fetch(
       'https://trackme-api.onrender.com/api/v1/auth/register',
@@ -69,11 +73,10 @@ const Register = () => {
       },
     );
     const resulta = await result.json();
-    userHandler(resulta);
-    const userName = resulta.data.user.name;
-    console.log(resulta.data.user.name);
-    console.log(userName);
-    // localStorage.setItem('user', JSON.stringify(resulta));
+    userHandler(resulta.data.user);
+    // const userName = resulta.data.user.name;
+    // console.log(resulta.data.user.name);
+    // console.log(userName);
 
     nevigate('/', { state: { name: resulta.data.user.name } });
   }

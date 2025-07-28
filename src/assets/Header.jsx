@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { FiMoreVertical, FiLogOut } from 'react-icons/fi';
 import { IoMdClose } from 'react-icons/io';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Maincontext } from './Pages/Context';
 import { SlGraph } from 'react-icons/sl';
 import { VscGraph } from 'react-icons/vsc';
@@ -12,8 +12,8 @@ import { PiPaintBrushBroadThin } from 'react-icons/pi';
 const Header = () => {
   const [toggle, Settoggle] = useState(false);
   const { user, logout } = useContext(Maincontext);
-  const location = useLocation();
-  const name = location.state?.name;
+
+ 
 
   return (
     <header className="shadow-md ">
@@ -57,7 +57,8 @@ const Header = () => {
 
                   <div className="mt-2 font-bold">
                     {' '}
-                    <h1>Welcome : {name ? name : 'Guest'}</h1>
+                   
+                    <h1>Welcome , {user.name}</h1>
                   </div>
                   <div
                     onClick={() => {

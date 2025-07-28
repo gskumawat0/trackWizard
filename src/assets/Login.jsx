@@ -1,7 +1,10 @@
+// src/Login.jsx
 import React, { useContext, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Maincontext } from './Pages/Context';
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
+import { jwtDecode } from 'jwt-decode';
+
 
 const Login = () => {
   const { userHandler } = useContext(Maincontext);
@@ -31,15 +34,18 @@ const Login = () => {
       );
 
       const data = await result.json();
+
       if (!result.ok) {
         throw new Error(data.message || 'Login failed');
       }
 
-      userHandler(data);
-      localStorage.setItem('user', JSON.stringify(data));
+      
+      const user = data.data.user;
+      userHandler(user);
+      localStorage.setItem('user', JSON.stringify(user));
+     
 
-      const name = data?.data?.user?.name;
-      navigate('/', { state: { name } });
+      navigate('/');
     } catch (err) {
       console.error('Login Error:', err.message);
       setErrorMessage(err.message);
@@ -48,11 +54,25 @@ const Login = () => {
 
   const handleGoogleSuccess = (credentialResponse) => {
     console.log('Google login success:', credentialResponse);
+    const decode = jwtDecode(credentialResponse?.credential);
+    const userData = {
+      name: decode.name,
+      email: decode.email,
+    };
+
+    userHandler(userData);
+    localStorage.setItem('user', JSON.stringify(userData));
+    console.log(decode);
+    console.log(userData);
+   
+    navigate('/');
+    // Optional: handle Google response here
   };
 
   const handleGoogleError = () => {
     console.log('Google login failed');
   };
+
 
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center">
@@ -97,6 +117,7 @@ const Login = () => {
 
           <button
             type="submit"
+            
             className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md transition"
           >
             Login
@@ -123,6 +144,7 @@ const Login = () => {
           <p className="text-red-500 mt-4 text-center">{errorMessage}</p>
         )}
       </div>
+
     </div>
   );
 };
